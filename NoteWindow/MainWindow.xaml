@@ -1,0 +1,41 @@
+﻿<Window x:Class="NoteWindow.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NoteWindow"
+        mc:Ignorable="d"
+        Title="Notes" Height="450" Width="700">
+    <StackPanel Orientation="Horizontal">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Button Grid.Row="0">Профиль</Button>
+            <Button Grid.Row="1">Словари</Button>
+            <Button Grid.Row="2">Курс</Button>
+            <ListBox x:Name="ListNotes" MinWidth="50" Grid.Row="3"></ListBox>
+        </Grid>
+        <Grid Width="650">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <TextBox x:Name="TextInput" Grid.Row="0" Grid.ColumnSpan="2" Height="395" Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5,0,0">
+                <Button x:Name="AddButton" 
+                        Grid.Row="1" Grid.Column="0" 
+                        Width="65" Margin="0,0,5,0"
+                        Click="AddButton_Click">Добавить</Button>
+                <Button x:Name="SaveButton" 
+                        Grid.Row="1" Grid.Column="1" 
+                        Width="65" 
+                        Click="AddButton_Click" Command="{Binding SubmitCommand}">Сохранить</Button>
+            </StackPanel>
+            
+        </Grid>
+    </StackPanel>
+</Window>
