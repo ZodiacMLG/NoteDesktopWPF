@@ -102,6 +102,19 @@
         "frameworkReferences": [
           "Microsoft.AspNetCore.App"
         ]
+      },
+      "NoteWindow.Services/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "NoteWindow.Model": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/NoteWindow.Services.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/NoteWindow.Services.dll": {}
+        }
       }
     }
   },
@@ -458,11 +471,17 @@
       "type": "project",
       "path": "../NoteWindow.Domain/NoteWindow.Model.csproj",
       "msbuildProject": "../NoteWindow.Domain/NoteWindow.Model.csproj"
+    },
+    "NoteWindow.Services/1.0.0": {
+      "type": "project",
+      "path": "../NoteWindow.Services/NoteWindow.Services.csproj",
+      "msbuildProject": "../NoteWindow.Services/NoteWindow.Services.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net8.0": [
-      "NoteWindow.Model >= 1.0.0"
+      "NoteWindow.Model >= 1.0.0",
+      "NoteWindow.Services >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -500,6 +519,9 @@
           "projectReferences": {
             "S:\\Projects\\C#\\NoteWindow\\NoteWindow.Domain\\NoteWindow.Model.csproj": {
               "projectPath": "S:\\Projects\\C#\\NoteWindow\\NoteWindow.Domain\\NoteWindow.Model.csproj"
+            },
+            "S:\\Projects\\C#\\NoteWindow\\NoteWindow.Services\\NoteWindow.Services.csproj": {
+              "projectPath": "S:\\Projects\\C#\\NoteWindow\\NoteWindow.Services\\NoteWindow.Services.csproj"
             }
           }
         }

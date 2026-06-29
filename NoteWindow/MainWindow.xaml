@@ -17,23 +17,28 @@
             <Button Grid.Row="0">Профиль</Button>
             <Button Grid.Row="1">Словари</Button>
             <Button Grid.Row="2">Курс</Button>
-            <ListBox x:Name="ListNotes" MinWidth="50" Grid.Row="3"></ListBox>
+            <ListBox SelectedItem="{Binding SelectedNote}" ItemsSource="{Binding Notes}" x:Name="ListNotes" MinWidth="50" Grid.Row="3">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Title}"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
         </Grid>
         <Grid Width="650">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <TextBox x:Name="TextInput" Grid.Row="0" Grid.ColumnSpan="2" Height="395" Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <TextBox x:Name="TextInput" Grid.Row="0" Grid.ColumnSpan="2" Height="395" Text="{Binding Content, UpdateSourceTrigger=PropertyChanged}"></TextBox>
             <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5,0,0">
                 <Button x:Name="AddButton" 
                         Grid.Row="1" Grid.Column="0" 
-                        Width="65" Margin="0,0,5,0"
-                        Click="AddButton_Click">Добавить</Button>
+                        Width="65" Margin="0,0,5,0">Добавить</Button>
                 <Button x:Name="SaveButton" 
-                        Grid.Row="1" Grid.Column="1" 
-                        Width="65" 
-                        Click="AddButton_Click" Command="{Binding SubmitCommand}">Сохранить</Button>
+                        Grid.Row="1" Grid.Column="1"
+                        Width="65"
+                        Command="{Binding SubmitCommand}" Content="Сохранить"/>
             </StackPanel>
             
         </Grid>
