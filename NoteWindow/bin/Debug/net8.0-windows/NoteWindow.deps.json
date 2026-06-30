@@ -7,14 +7,64 @@
   "targets": {
     ".NETCoreApp,Version=v8.0": {
       "NoteWindow/1.0.0": {
+        "dependencies": {
+          "NoteWindow.Services": "1.0.0",
+          "NoteWindow.ViewModel": "1.0.0"
+        },
         "runtime": {
           "NoteWindow.dll": {}
+        }
+      },
+      "NoteWindow.Model/1.0.0": {
+        "runtime": {
+          "NoteWindow.Model.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "NoteWindow.Services/1.0.0": {
+        "dependencies": {
+          "NoteWindow.Model": "1.0.0"
+        },
+        "runtime": {
+          "NoteWindow.Services.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "NoteWindow.ViewModel/1.0.0": {
+        "dependencies": {
+          "NoteWindow.Model": "1.0.0",
+          "NoteWindow.Services": "1.0.0"
+        },
+        "runtime": {
+          "NoteWindow.ViewModel.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       }
     }
   },
   "libraries": {
     "NoteWindow/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "NoteWindow.Model/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "NoteWindow.Services/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "NoteWindow.ViewModel/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

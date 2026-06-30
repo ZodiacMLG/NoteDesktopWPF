@@ -4,6 +4,7 @@ using NoteWindow.ViewModel.Infrastructure;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows;
 using System.Windows.Input;
 
 namespace NoteWindow.ViewModel.Model
@@ -63,31 +64,49 @@ namespace NoteWindow.ViewModel.Model
             set
             {
                 _selectedNote = value;
-                _selectedNote.Title = _title;
-                _selectedNote.Content = _content;
+                if (_selectedNote != null)
+                {
+                    Title = _selectedNote.Title;
+                    Content = _selectedNote.Content;
+                }
                 OnPropertyChanged(nameof(SelectedNote));
             }
         }
 
         private async void SubmitExecute(object parameter)
         {
-            var lines = _content?.Split('\n');
-            // Логика нажатия кнопки
-            Note note = new()
+            try
             {
-                Title = lines?.FirstOrDefault() ?? "Без названия",
-                Content = _content
-            };
+                var lines = _content?.Split('\n');
+                var title = lines?.FirstOrDefault() ?? "Без названия";
 
-            if (_selectedNote != null)
-            {
-                await _noteRepository.SaveNoteAsync(note);
-            }
-            else if (_selectedNote == null)
-            {
+                if (_selectedNote != null)
+                {
+                    _selectedNote.Title = title;
+                    _selectedNote.Content = _content;
+                    Note note = _selectedNote;
+                    _selectedNote.ModifiedDate = DateTime.Now;
 
+                    await _noteRepository.SaveNoteAsync(note);
+                }
+                else
+                {
+                    // Логика нажатия кнопки
+                    Note note = new()
+                    {
+                        Title = title,
+                        Content = _content
+                    };
+
+                    await _noteRepository.SaveNoteAsync(note);
+
+                    Notes.Add(note);
+                }
             }
-            
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка сохранения: " + ex.Message);
+            } 
         }
 
         private bool CanSumbitExecute(object parameter)

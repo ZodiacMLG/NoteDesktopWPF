@@ -8,4 +8,9 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\NoteWindow.Services\NoteWindow.Services.csproj" />
+    <ProjectReference Include="..\NoteWindow.ViewModel\NoteWindow.ViewModel.csproj" />
+  </ItemGroup>
+
 </Project>

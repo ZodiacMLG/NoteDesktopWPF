@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("NoteWindow.Services")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+cf4fb1374c039cf49970fd882d97ded9476c20ae")]
 [assembly: System.Reflection.AssemblyProductAttribute("NoteWindow.Services")]
 [assembly: System.Reflection.AssemblyTitleAttribute("NoteWindow.Services")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

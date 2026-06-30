@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
-using NoteWindow.Model.Model;
+﻿using NoteWindow.Model.Model;
 using NoteWindow.Services.Interfaces;
 using System.Text.Json;
 
