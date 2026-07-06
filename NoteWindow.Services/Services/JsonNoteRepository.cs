@@ -1,5 +1,6 @@
 ﻿using NoteWindow.Model.Model;
 using NoteWindow.Services.Interfaces;
+using System.Diagnostics;
 using System.Text.Json;
 
 namespace NoteWindow.Services.Services
@@ -27,14 +28,23 @@ namespace NoteWindow.Services.Services
 
                 foreach (string file in files)
                 {
-                    json = await File.ReadAllTextAsync(file);
-                    note.Add(JsonSerializer.Deserialize<Note>(json));
+                    try
+                    {
+                        json = await File.ReadAllTextAsync(file);
+                        note.Add(JsonSerializer.Deserialize<Note>(json));
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine($"Не удалось загрузить {file}: {ex.Message}");
+                        continue;
+                    }
                 }
 
                 return note!;
             }
             catch (Exception ex)
             {
+                Debug.WriteLine(ex);
                 throw;
             }
         }

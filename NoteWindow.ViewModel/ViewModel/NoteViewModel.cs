@@ -49,12 +49,14 @@ namespace NoteWindow.ViewModel.Model
         }
 
         public ICommand SubmitCommand { get; }
+        public ICommand DeleteCommand { get; }
 
         public NoteViewModel(INoteRepository noteRepository)
         {
             Notes = new ObservableCollection<Note>();
             _noteRepository = noteRepository;
             SubmitCommand = new RelayCommand(SubmitExecute, CanSumbitExecute);
+            DeleteCommand = new RelayCommand(DeleteExecute, CanDeleteExecute);
             LoadNotesAsync();
         }
 
@@ -88,6 +90,7 @@ namespace NoteWindow.ViewModel.Model
                     _selectedNote.ModifiedDate = DateTime.Now;
 
                     await _noteRepository.SaveNoteAsync(note);
+                    MessageBox.Show("Сохранение выполнено.");
                 }
                 else
                 {
@@ -101,6 +104,7 @@ namespace NoteWindow.ViewModel.Model
                     await _noteRepository.SaveNoteAsync(note);
 
                     Notes.Add(note);
+                    MessageBox.Show("Сохранение выполнено.");
                 }
             }
             catch (Exception ex)
@@ -115,16 +119,50 @@ namespace NoteWindow.ViewModel.Model
             return true;
         }
 
+        private async void DeleteExecute(object parameter)
+        {
+            try
+            {
+                Note note = _selectedNote;
+                await _noteRepository.DeleteNoteAsync(note.Id);
+                Content = "";
+                SelectedNote = null;
+                MessageBox.Show("Удаление выполнено.");
+                Notes.Remove(note);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка удаления: " + ex.Message);
+            }
+        }
+        private bool CanDeleteExecute(object parameter)
+        {
+            if (_selectedNote != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         private async Task LoadNotesAsync()
         {
-            var notes = await _noteRepository.GetAllNotesAsync();
-
-            foreach (var note in notes)
+            try
             {
-                Notes.Add(note);
-            }
+                var notes = await _noteRepository.GetAllNotesAsync();
 
-            return;
+                foreach (var note in notes)
+                {
+                    Notes.Add(note);
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message);
+                Task.FromException(ex);
+            }
+            
         }
     }
 }
