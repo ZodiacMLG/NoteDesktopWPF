@@ -15,6 +15,12 @@
         <DataTemplate DataType="{x:Type vmMain:ProfileViewModel}">
             <local:ProfileView />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vmMain:DictionaryViewModel}">
+            <local:DictionaryView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type local:UserControlTest}">
+            <local:UserControlTest/>
+        </DataTemplate>
     </Window.Resources>
     <StackPanel Orientation="Horizontal">
         <Grid MaxWidth="100">
@@ -25,7 +31,7 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <Button Grid.Row="0" Command="{Binding ShowProfileCommand}" Content="Профиль"/>
-            <Button Grid.Row="1">Словари</Button>
+            <Button Grid.Row="1" Command="{Binding ShowDictionaryCommand}" Content="Словари"/>
             <Button Grid.Row="2">Курс</Button>
             <ListBox SelectedItem="{Binding NoteViewModel.SelectedNote}" ItemsSource="{Binding NoteViewModel.Notes}" x:Name="ListNotes" MinWidth="50" Grid.Row="3">
                 <ListBox.ItemTemplate>
@@ -35,6 +41,7 @@
                 </ListBox.ItemTemplate>
             </ListBox>
         </Grid>
+        
         <ContentControl Content="{Binding CurrentView}"/>
     </StackPanel>
 </Window>

@@ -1,0 +1,10 @@
+.git
+.vs
+NoteWindow.Domain/bin/Debug/
+NoteWindow.Domain/obj/Debug/
+NoteWindow.Services/bin/Debug/
+NoteWindow.Services/obj/Debug/
+NoteWindow.ViewModel/bin/Debug/
+NoteWindow.ViewModel/obj/Debug/
+NoteWindow/bin/Debug/
+NoteWindow/obj/Debug/

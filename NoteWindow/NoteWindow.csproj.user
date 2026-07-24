@@ -2,10 +2,16 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup />
   <ItemGroup>
+    <Compile Update="DictionaryView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="NoteView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="ProfileView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControlTest.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
