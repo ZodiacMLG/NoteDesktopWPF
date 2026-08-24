@@ -12,14 +12,11 @@
         <DataTemplate DataType="{x:Type vm:NoteViewModel}">
             <local:NoteView />
         </DataTemplate>
-        <DataTemplate DataType="{x:Type vmMain:ProfileViewModel}">
-            <local:ProfileView />
+        <DataTemplate DataType="{x:Type vmMain:ProfileUserControlViewModel}">
+            <local:ProfileUserControl/>
         </DataTemplate>
-        <DataTemplate DataType="{x:Type vmMain:DictionaryViewModel}">
-            <local:DictionaryView/>
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type local:UserControlTest}">
-            <local:UserControlTest/>
+        <DataTemplate DataType="{x:Type vmMain:DictionaryUserControlViewModel}">
+            <local:DictionaryUserControl/>
         </DataTemplate>
     </Window.Resources>
     <StackPanel Orientation="Horizontal">

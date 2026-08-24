@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="NoteWindow.UserControlTest"
+﻿<UserControl x:Class="NoteWindow.DictionaryUserControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,9 +6,10 @@
              xmlns:local="clr-namespace:NoteWindow"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+
     <Grid>
         <!--<Button Content="Изучить новые термины"/>-->
         <!--<Button Content="Повторить пройденный материал"/>-->
-        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Тест"/>
+        <TextBlock Text="Тест"/>
     </Grid>
 </UserControl>

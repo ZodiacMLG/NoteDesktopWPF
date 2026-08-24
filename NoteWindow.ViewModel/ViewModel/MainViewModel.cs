@@ -10,12 +10,11 @@ namespace NoteWindow.ViewModel.ViewModel
 {
     public class MainViewModel : INotifyPropertyChanged
     {
-        private object _currentView;
+        private object? _currentView;
         private JsonNoteRepository _noteRepository;
         private NoteViewModel _noteViewModel;
-        private ProfileViewModel _profileViewModel;
-        private DictionaryViewModel _dictionaryViewModel;
-        private UserControlTestViewModel _userControlViewModel;
+        private DictionaryUserControlViewModel _dictionaryUserControlViewModel;
+        private ProfileUserControlViewModel _profileUserControlViewModel;
 
         public NoteViewModel NoteViewModel => _noteViewModel;
 
@@ -25,7 +24,7 @@ namespace NoteWindow.ViewModel.ViewModel
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public object CurrentView
+        public object? CurrentView
         {
             get { return _currentView; }
             set
@@ -42,9 +41,8 @@ namespace NoteWindow.ViewModel.ViewModel
         public MainViewModel(JsonNoteRepository noteRepository)
         {
             _noteViewModel = new NoteViewModel(noteRepository);
-            _profileViewModel = new ProfileViewModel();
-            _dictionaryViewModel = new DictionaryViewModel();
-            _userControlViewModel = new UserControlTestViewModel();
+            _dictionaryUserControlViewModel = new DictionaryUserControlViewModel();
+            _profileUserControlViewModel = new ProfileUserControlViewModel();
             
             CurrentView = _noteViewModel;
 
@@ -53,16 +51,38 @@ namespace NoteWindow.ViewModel.ViewModel
             ShowDictionaryCommand = new RelayCommand(ShowDictionaryExecute, CanShowDictionaryExecute);
         }
 
-        private async void ShowProfileExecute(object parameter)
+        private void ShowProfileExecute(object parameter)
         {
-            //CurrentView = _profileViewModel;
-            CurrentView = _userControlViewModel;
+            if (CurrentView == _profileUserControlViewModel)
+            {
+                CurrentView = _noteViewModel;
+            }
+            else
+            {
+                CurrentView = _profileUserControlViewModel;
+            }
         }
         private bool CanShowProfileExecute(object parameter)
         {
             return true;
         }
-        private async void ShowNotesExecute(object parameter)
+        private void ShowDictionaryExecute(object parameter)
+        {
+            if (CurrentView == _dictionaryUserControlViewModel)
+            {
+                CurrentView = _noteViewModel;
+            }
+            else
+            {
+                CurrentView = _dictionaryUserControlViewModel;
+            }
+        }
+        private bool CanShowDictionaryExecute(object parameter)
+        {
+            return true;
+        }
+
+        private void ShowNotesExecute(object parameter)
         {
             CurrentView = _noteViewModel;
         }
@@ -70,14 +90,6 @@ namespace NoteWindow.ViewModel.ViewModel
         {
             return true;
         }
-        private async void ShowDictionaryExecute(object parameter)
-        {
-            CurrentView = _dictionaryViewModel;
-            
-        }
-        private bool CanShowDictionaryExecute(object parameter)
-        {
-            return true;
-        }
+        
     }
 }
