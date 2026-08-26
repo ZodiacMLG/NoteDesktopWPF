@@ -4,13 +4,14 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace NoteWindow.ViewModel.ViewModel
 {
     public class ProfileUserControlViewModel : INotifyPropertyChanged
     {
         private ImageSource _avatar;
-        public string FilePath { get; set; }
+        public string filePath { get; set; }
 
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -50,7 +51,10 @@ namespace NoteWindow.ViewModel.ViewModel
             {
                 // Open document
                 string filename = dialog.FileName;
+                filePath = dialog.FileName;
             }
+
+            Avatar = new BitmapImage(new Uri(filePath));
         }
 
         private bool CanDownloadAvatarExecute(object parameter)
