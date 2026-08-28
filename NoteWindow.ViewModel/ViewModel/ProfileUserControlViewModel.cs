@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using NoteWindow.ViewModel.Infrastructure;
 using System.ComponentModel;
+using System.IO;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -11,7 +12,11 @@ namespace NoteWindow.ViewModel.ViewModel
     public class ProfileUserControlViewModel : INotifyPropertyChanged
     {
         private ImageSource _avatar;
-        public string filePath { get; set; }
+        private string _avatarSavePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
+                                                      "images/avatar",
+                                                      "avatar.jpg"
+                                                      );
+        private string _filePath { get; set; }
 
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -25,6 +30,7 @@ namespace NoteWindow.ViewModel.ViewModel
         public ProfileUserControlViewModel()
         {
             DownloadAvatarCommand = new RelayCommand(DownloadAvatarExecute, CanDownloadAvatarExecute);
+            LoadAvatarFromLocalStorage();
         }
 
         public ImageSource Avatar
@@ -39,9 +45,9 @@ namespace NoteWindow.ViewModel.ViewModel
 
         private void DownloadAvatarExecute(object parameter)
         {
-            var dialog = new OpenFileDialog();
+            OpenFileDialog dialog = new OpenFileDialog();
             dialog.FileName = "Document"; // Default file name
-            dialog.Filter = "JPEG Files (*.jpeg)|*.jpeg|PNG Files (*.png)|*.png|JPG Files (*.jpg)|*.jpg|GIF Files (*.gif)|*.gif"; // Filter files by extension
+            dialog.Filter = "JPEG Files (*.jpeg;*.png;*.jpg;*.gif)|*.jpeg;*.png;*.jpg;*.gif"; // Filter files by extension
 
             // Show open file dialog box
             bool? result = dialog.ShowDialog();
@@ -51,10 +57,11 @@ namespace NoteWindow.ViewModel.ViewModel
             {
                 // Open document
                 string filename = dialog.FileName;
-                filePath = dialog.FileName;
-            }
+                _filePath = dialog.FileName;
+                Avatar = new BitmapImage(new Uri(_filePath));
 
-            Avatar = new BitmapImage(new Uri(filePath));
+                SaveBitmapImage((BitmapImage)Avatar, _avatarSavePath);
+            }
         }
 
         private bool CanDownloadAvatarExecute(object parameter)
@@ -62,5 +69,40 @@ namespace NoteWindow.ViewModel.ViewModel
             return true;
         }
 
+        private void SaveBitmapImage(BitmapImage bitmapImage, string filePath)
+        {
+            BitmapEncoder encoder = new JpegBitmapEncoder();
+
+            encoder.Frames.Add(BitmapFrame.Create(bitmapImage));
+
+            string directory = Path.GetDirectoryName(_avatarSavePath);
+            if (!Directory.Exists(directory))
+            {
+                Directory.CreateDirectory(directory);
+            }
+
+            using (var fileStream = new FileStream(filePath, FileMode.Create))
+            {
+                encoder.Save(fileStream);
+            }
+        }
+
+        private void LoadAvatarFromLocalStorage()
+        {
+            Avatar = LoadBitmapFromFile();
+        }
+
+        private BitmapImage LoadBitmapFromFile()
+        {
+            BitmapImage bitmap = new BitmapImage();
+
+            bitmap.BeginInit();
+            bitmap.UriSource = new Uri(_avatarSavePath);
+            bitmap.CacheOption = BitmapCacheOption.OnLoad;
+            bitmap.EndInit();
+            bitmap.Freeze();
+
+            return bitmap;
+        }
     }
 }
