@@ -7,5 +7,6 @@ namespace NoteWindow.Services.Interfaces
         Task<IEnumerable<Note>> GetAllNotesAsync();
         Task SaveNoteAsync(Note note);
         Task DeleteNoteAsync(Guid Id);
+        Task SaveCardAsync(string text);
     }
 }

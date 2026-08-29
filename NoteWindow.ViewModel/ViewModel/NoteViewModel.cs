@@ -50,6 +50,7 @@ namespace NoteWindow.ViewModel.Model
 
         public ICommand SubmitCommand { get; }
         public ICommand DeleteCommand { get; }
+        public ICommand CreateCardCommand { get; }
 
         public NoteViewModel(INoteRepository noteRepository)
         {
@@ -57,6 +58,7 @@ namespace NoteWindow.ViewModel.Model
             _noteRepository = noteRepository;
             SubmitCommand = new RelayCommand(SubmitExecute, CanSumbitExecute);
             DeleteCommand = new RelayCommand(DeleteExecute, CanDeleteExecute);
+            CreateCardCommand = new RelayCommand(CreateCardExecute, CanCreateCardExecute);
             LoadNotesAsync();
         }
 
@@ -73,6 +75,32 @@ namespace NoteWindow.ViewModel.Model
                 }
                 OnPropertyChanged(nameof(SelectedNote));
             }
+        }
+
+        private async void CreateCardExecute(object parameter)
+        {
+            string selectedText = parameter as string;
+
+            if (!string.IsNullOrEmpty(selectedText))
+            {
+                try
+                {
+                    await _noteRepository.SaveCardAsync(selectedText);
+
+                    MessageBox.Show("Карточка успешно создана!", "Успех",
+                               MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                catch (Exception ex) 
+                {
+                    MessageBox.Show($"Ошибка при создании карточки: {ex.Message}", "Ошибка",
+                               MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+
+        private bool CanCreateCardExecute(object parameter)
+        {
+            return true;
         }
 
         private async void SubmitExecute(object parameter)
@@ -135,6 +163,7 @@ namespace NoteWindow.ViewModel.Model
                 MessageBox.Show("Ошибка удаления: " + ex.Message);
             }
         }
+
         private bool CanDeleteExecute(object parameter)
         {
             if (_selectedNote != null)
@@ -146,6 +175,7 @@ namespace NoteWindow.ViewModel.Model
                 return false;
             }
         }
+
         private async Task LoadNotesAsync()
         {
             try

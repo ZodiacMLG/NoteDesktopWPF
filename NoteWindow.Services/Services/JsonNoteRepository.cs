@@ -79,5 +79,16 @@ namespace NoteWindow.Services.Services
                 return Task.FromException(ex);
             }
         }
+
+        public async Task SaveCardAsync(string text)
+        {
+            string pathForCards = _savePath + "/Cards/";
+            if (!Directory.Exists(pathForCards))
+            {
+                Directory.CreateDirectory(pathForCards);
+            }
+            Guid idCard = Guid.NewGuid();
+            await File.WriteAllTextAsync(Path.Combine(pathForCards, idCard.ToString() + ".txt"), text);
+        }
     }
 }
