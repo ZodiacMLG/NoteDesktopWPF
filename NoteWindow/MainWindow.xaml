@@ -19,26 +19,43 @@
             <local:DictionaryUserControl/>
         </DataTemplate>
     </Window.Resources>
-    <StackPanel Orientation="Horizontal">
-        <Grid MaxWidth="100">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Левая панель -->
+        <Grid Grid.Column="0" MaxWidth="100" Margin="0,0,10,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="40"/>
                 <RowDefinition Height="40"/>
                 <RowDefinition Height="40"/>
-                <RowDefinition/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
+
             <Button Grid.Row="0" Command="{Binding ShowProfileCommand}" Content="Профиль"/>
             <Button Grid.Row="1" Command="{Binding ShowDictionaryCommand}" Content="Словари"/>
             <Button Grid.Row="2">Курс</Button>
-            <ListBox SelectedItem="{Binding NoteViewModel.SelectedNote}" ItemsSource="{Binding NoteViewModel.Notes}" x:Name="ListNotes" MinWidth="50" Grid.Row="3">
+
+            <ListBox Grid.Row="3" 
+                     SelectedItem="{Binding NoteViewModel.SelectedNote}" 
+                     ItemsSource="{Binding NoteViewModel.Notes}" 
+                     x:Name="ListNotes" 
+                     MinWidth="50">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding Title}" Cursor=""/>
+                        <TextBlock Text="{Binding Title}"/>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
         </Grid>
-        
-        <ContentControl Content="{Binding CurrentView}"/>
-    </StackPanel>
+
+        <!-- Правая область для контента -->
+        <ContentControl Grid.Column="1" 
+                        VerticalAlignment="Center" 
+                        HorizontalAlignment="Center" 
+                        Content="{Binding CurrentView}"/>
+    </Grid>
 </Window>

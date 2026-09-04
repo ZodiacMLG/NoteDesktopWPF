@@ -16,6 +16,8 @@ namespace NoteWindow.ViewModel.ViewModel
                                                       "images/avatar",
                                                       "avatar.jpg"
                                                       );
+        private string _directorySavePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
+                                                      "images/avatar");
         private string _filePath { get; set; }
 
 
@@ -29,6 +31,10 @@ namespace NoteWindow.ViewModel.ViewModel
 
         public ProfileUserControlViewModel()
         {
+            if (!Directory.Exists(_directorySavePath))
+            {
+                Directory.CreateDirectory(_directorySavePath);
+            }
             DownloadAvatarCommand = new RelayCommand(DownloadAvatarExecute, CanDownloadAvatarExecute);
             LoadAvatarFromLocalStorage();
         }
@@ -60,7 +66,7 @@ namespace NoteWindow.ViewModel.ViewModel
                 _filePath = dialog.FileName;
                 Avatar = new BitmapImage(new Uri(_filePath));
 
-                SaveBitmapImage((BitmapImage)Avatar, _avatarSavePath);
+                SaveBitmapImage((BitmapImage)Avatar, _directorySavePath);
             }
         }
 
@@ -75,13 +81,7 @@ namespace NoteWindow.ViewModel.ViewModel
 
             encoder.Frames.Add(BitmapFrame.Create(bitmapImage));
 
-            string directory = Path.GetDirectoryName(_avatarSavePath);
-            if (!Directory.Exists(directory))
-            {
-                Directory.CreateDirectory(directory);
-            }
-
-            using (var fileStream = new FileStream(filePath, FileMode.Create))
+            using (var fileStream = new FileStream(_avatarSavePath, FileMode.Create))
             {
                 encoder.Save(fileStream);
             }
@@ -89,7 +89,10 @@ namespace NoteWindow.ViewModel.ViewModel
 
         private void LoadAvatarFromLocalStorage()
         {
-            Avatar = LoadBitmapFromFile();
+            if (File.Exists(_avatarSavePath)) 
+            {
+                Avatar = LoadBitmapFromFile();
+            }
         }
 
         private BitmapImage LoadBitmapFromFile()
