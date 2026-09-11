@@ -11,7 +11,7 @@ namespace NoteWindow.Services.Services
 
         public JsonNoteRepository()
         {
-            _savePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Files");
+            _savePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Files/Dictionary/BigNotes");
             if (!Directory.Exists(_savePath))
             {
                 Directory.CreateDirectory(_savePath);
@@ -78,17 +78,6 @@ namespace NoteWindow.Services.Services
             {
                 return Task.FromException(ex);
             }
-        }
-
-        public async Task SaveCardAsync(string text)
-        {
-            string pathForCards = _savePath + "/Cards/";
-            if (!Directory.Exists(pathForCards))
-            {
-                Directory.CreateDirectory(pathForCards);
-            }
-            Guid idCard = Guid.NewGuid();
-            await File.WriteAllTextAsync(Path.Combine(pathForCards, idCard.ToString() + ".txt"), text);
         }
     }
 }

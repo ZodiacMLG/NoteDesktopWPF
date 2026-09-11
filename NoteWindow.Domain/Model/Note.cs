@@ -32,9 +32,9 @@ namespace NoteWindow.Model.Model
                 }
             }
         }
+        public Guid Id { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime ModifiedDate { get; set; }
-        public Guid Id { get; set; }
         public Note() 
         {
             Id = Guid.NewGuid();

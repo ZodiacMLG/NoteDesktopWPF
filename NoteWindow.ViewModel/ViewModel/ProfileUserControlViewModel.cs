@@ -66,7 +66,7 @@ namespace NoteWindow.ViewModel.ViewModel
                 _filePath = dialog.FileName;
                 Avatar = new BitmapImage(new Uri(_filePath));
 
-                SaveBitmapImage((BitmapImage)Avatar, _directorySavePath);
+                SaveBitmapImage((BitmapImage)Avatar, _avatarSavePath);
             }
         }
 
@@ -81,7 +81,7 @@ namespace NoteWindow.ViewModel.ViewModel
 
             encoder.Frames.Add(BitmapFrame.Create(bitmapImage));
 
-            using (var fileStream = new FileStream(_avatarSavePath, FileMode.Create))
+            using (var fileStream = new FileStream(filePath, FileMode.Create))
             {
                 encoder.Save(fileStream);
             }

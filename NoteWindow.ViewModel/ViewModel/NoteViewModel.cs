@@ -1,4 +1,5 @@
-﻿using NoteWindow.Model.Model;
+﻿using NoteWindow.Model.Enums;
+using NoteWindow.Model.Model;
 using NoteWindow.Services.Interfaces;
 using NoteWindow.ViewModel.Infrastructure;
 using System.Collections.ObjectModel;
@@ -13,6 +14,7 @@ namespace NoteWindow.ViewModel.Model
     {
         public ObservableCollection<Note> Notes { get; }
         private INoteRepository _noteRepository;
+        private ICardRepository _cardRepository;
         private string _title;
         private string _content;
         private Note _selectedNote;
@@ -52,10 +54,12 @@ namespace NoteWindow.ViewModel.Model
         public ICommand DeleteCommand { get; }
         public ICommand CreateCardCommand { get; }
 
-        public NoteViewModel(INoteRepository noteRepository)
+        public NoteViewModel(INoteRepository noteRepository,
+                             ICardRepository cardRepository)
         {
             Notes = new ObservableCollection<Note>();
             _noteRepository = noteRepository;
+            _cardRepository = cardRepository;
             SubmitCommand = new RelayCommand(SubmitExecute, CanSumbitExecute);
             DeleteCommand = new RelayCommand(DeleteExecute, CanDeleteExecute);
             CreateCardCommand = new RelayCommand(CreateCardExecute, CanCreateCardExecute);
@@ -85,7 +89,10 @@ namespace NoteWindow.ViewModel.Model
             {
                 try
                 {
-                    await _noteRepository.SaveCardAsync(selectedText);
+                    Card card = new Card(){
+                        Content = selectedText
+                    };
+                    await _cardRepository.SaveCardAsync(card);
 
                     MessageBox.Show("Карточка успешно создана!", "Успех",
                                MessageBoxButton.OK, MessageBoxImage.Information);
@@ -100,7 +107,7 @@ namespace NoteWindow.ViewModel.Model
 
         private bool CanCreateCardExecute(object parameter)
         {
-            return true;
+            return !string.IsNullOrWhiteSpace(parameter as string);
         }
 
         private async void SubmitExecute(object parameter)
