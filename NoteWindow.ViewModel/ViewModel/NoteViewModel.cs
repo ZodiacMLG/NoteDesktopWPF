@@ -197,7 +197,7 @@ namespace NoteWindow.ViewModel.Model
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine(ex.Message);
-                Task.FromException(ex);
+                await Task.FromException(ex);
             }
             
         }
