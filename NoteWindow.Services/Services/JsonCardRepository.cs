@@ -72,6 +72,7 @@ namespace NoteWindow.Services.Services
                 if (card == null)
                 {
                     Debug.WriteLine("Не удалось десерилизовать json в Card");
+                    return await Task.FromResult(false);
                 }
                 card.Status = CardStatus.Reviewed;
                 string json = JsonSerializer.Serialize(card);

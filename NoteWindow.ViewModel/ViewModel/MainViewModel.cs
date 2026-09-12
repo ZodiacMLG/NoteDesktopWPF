@@ -1,4 +1,5 @@
-﻿using NoteWindow.Services.Services;
+﻿using NoteWindow.Services.Interfaces;
+using NoteWindow.Services.Services;
 using NoteWindow.ViewModel.Infrastructure;
 using NoteWindow.ViewModel.Model;
 using System.ComponentModel;
@@ -11,7 +12,8 @@ namespace NoteWindow.ViewModel.ViewModel
     public class MainViewModel : INotifyPropertyChanged
     {
         private object? _currentView;
-        private JsonNoteRepository _noteRepository;
+        private INoteRepository _noteRepository;
+        private ICardRepository _cardRepository;
         private NoteViewModel _noteViewModel;
         private DictionaryUserControlViewModel _dictionaryUserControlViewModel;
         private ProfileUserControlViewModel _profileUserControlViewModel;
@@ -38,9 +40,12 @@ namespace NoteWindow.ViewModel.ViewModel
         public ICommand ShowNotesCommand { get; }
         public ICommand ShowDictionaryCommand { get; }
 
-        public MainViewModel(JsonNoteRepository noteRepository)
+        public MainViewModel(INoteRepository noteRepository,
+                             ICardRepository cardRepository)
         {
-            _noteViewModel = new NoteViewModel(noteRepository);
+            _noteRepository = noteRepository;
+            _cardRepository = cardRepository;
+            _noteViewModel = new NoteViewModel(noteRepository, cardRepository);
             _dictionaryUserControlViewModel = new DictionaryUserControlViewModel();
             _profileUserControlViewModel = new ProfileUserControlViewModel();
             

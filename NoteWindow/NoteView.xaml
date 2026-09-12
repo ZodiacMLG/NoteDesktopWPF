@@ -17,7 +17,12 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <TextBox AcceptsReturn="True" x:Name="TextInput" Grid.Row="0" Grid.ColumnSpan="2" Text="{Binding Content, UpdateSourceTrigger=PropertyChanged}">
+        <TextBox AcceptsReturn="True"
+                 TextWrapping="Wrap"
+                 VerticalScrollBarVisibility="Auto"
+                 Grid.Row="0"
+                 Grid.ColumnSpan="2"
+                 Text="{Binding Content, UpdateSourceTrigger=PropertyChanged}">
             <TextBox.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="Создать карточку" 

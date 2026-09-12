@@ -1,4 +1,5 @@
-﻿using NoteWindow.Services.Services;
+﻿using NoteWindow.Services.Interfaces;
+using NoteWindow.Services.Services;
 using NoteWindow.ViewModel.ViewModel;
 using System.Windows;
 
@@ -12,8 +13,9 @@ namespace NoteWindow
         public MainWindow()
         {
             InitializeComponent();
-            JsonNoteRepository jsonNoteRepository = new();
-            DataContext = new MainViewModel(jsonNoteRepository);
+            INoteRepository jsonNoteRepository = new JsonNoteRepository();
+            ICardRepository cardRepository = new JsonCardRepository();
+            DataContext = new MainViewModel(jsonNoteRepository, cardRepository);
         }
     }
 }

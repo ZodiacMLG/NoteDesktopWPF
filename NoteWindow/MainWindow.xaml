@@ -10,7 +10,9 @@
         Title="Notes" Height="450" Width="700">
     <Window.Resources>
         <DataTemplate DataType="{x:Type vm:NoteViewModel}">
-            <local:NoteView />
+            <DockPanel LastChildFill="True">
+                <local:NoteView />
+            </DockPanel>
         </DataTemplate>
         <DataTemplate DataType="{x:Type vmMain:ProfileUserControlViewModel}">
             <local:ProfileUserControl/>
@@ -27,7 +29,7 @@
         </Grid.ColumnDefinitions>
 
         <!-- Левая панель -->
-        <Grid Grid.Column="0" MaxWidth="100" Margin="0,0,10,0">
+        <Grid Grid.Column="0" MaxWidth="100" Margin="0,0,0,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="40"/>
                 <RowDefinition Height="40"/>
@@ -53,9 +55,7 @@
         </Grid>
 
         <!-- Правая область для контента -->
-        <ContentControl Grid.Column="1" 
-                        VerticalAlignment="Center" 
-                        HorizontalAlignment="Center" 
+        <ContentControl Grid.Column="1"
                         Content="{Binding CurrentView}"/>
     </Grid>
 </Window>
