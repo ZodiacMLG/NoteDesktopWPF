@@ -46,7 +46,7 @@ namespace NoteWindow.ViewModel.ViewModel
             _noteRepository = noteRepository;
             _cardRepository = cardRepository;
             _noteViewModel = new NoteViewModel(noteRepository, cardRepository);
-            _dictionaryUserControlViewModel = new DictionaryUserControlViewModel();
+            _dictionaryUserControlViewModel = new DictionaryUserControlViewModel(cardRepository);
             _profileUserControlViewModel = new ProfileUserControlViewModel();
             
             CurrentView = _noteViewModel;

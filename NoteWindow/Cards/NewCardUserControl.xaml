@@ -6,7 +6,67 @@
              xmlns:local="clr-namespace:NoteWindow.Cards"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+
     <Grid>
-            
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="Нет карточек" Visibility="{Binding EmptyMessageVisibility}"/>
+        <!-- Карточка с термином -->
+        <Border Grid.Row="0"
+                Width="420"
+                Height="320"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Background="White"
+                BorderBrush="Black"
+                BorderThickness="1.5"
+                CornerRadius="40"
+                Visibility="{Binding CardsVisibility}">
+            <TextBlock Text="{Binding CurrentCard.Content}"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       FontSize="16"
+                       FontWeight="SemiBold"
+                       Foreground="Black"
+                       TextAlignment="Center"
+                       TextWrapping="Wrap"
+                       Margin="30"/>
+        </Border>
+
+        <!-- Кнопки -->
+        <Grid Grid.Row="1" 
+              Margin="0,0,0,60"
+              HorizontalAlignment="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="0"
+                    Content="Изучил"
+                    Command="{Binding MarkAsLearnedCommand}"
+                    Width="120"
+                    Height="30"
+                    Margin="0,0,100,0"
+                    Background="White"
+                    BorderBrush="Black"
+                    BorderThickness="1"
+                    FontSize="14"
+                    Cursor="Hand"/>
+
+            <Button Grid.Column="1"
+                    Content="Дальше"
+                    Command="{Binding NextCommand}"
+                    Width="120"
+                    Height="30"
+                    Margin="100,0,0,0"
+                    Background="White"
+                    BorderBrush="Black"
+                    BorderThickness="1"
+                    FontSize="14"
+                    Cursor="Hand"/>
+        </Grid>
     </Grid>
 </UserControl>
