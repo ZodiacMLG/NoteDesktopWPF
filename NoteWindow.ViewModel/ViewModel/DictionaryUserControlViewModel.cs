@@ -1,6 +1,7 @@
 ﻿using NoteWindow.Services.Interfaces;
 using NoteWindow.ViewModel.Infrastructure;
 using NoteWindow.ViewModel.ViewModel.Cards;
+using System.CodeDom.Compiler;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
@@ -30,6 +31,7 @@ namespace NoteWindow.ViewModel.ViewModel
 
         public Visibility MenuVisibility => CurrentView == null ? Visibility.Visible : Visibility.Collapsed;
         public ICommand ShowNewCardsCommand { get; }
+        public ICommand ShowReviewedCardsCommand { get; }
 
         private object? _currentView;
         private readonly StudyCardsViewModel _studyCardsViewModel;
@@ -41,6 +43,7 @@ namespace NoteWindow.ViewModel.ViewModel
             _cardRepository = cardRepository;
 
             ShowNewCardsCommand = new RelayCommand(ShowNewCardsExecute, CanShowNewCardsExecute);
+            ShowReviewedCardsCommand = new RelayCommand(ShowReviewedCardsExecute, CanShowReviewedCardsExecute);
         }
 
         private void ShowNewCardsExecute(object parameter)
