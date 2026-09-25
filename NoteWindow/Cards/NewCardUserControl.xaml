@@ -9,15 +9,27 @@
 
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
+        <Button Grid.Row="0"
+                Content="Назад"
+                Command="{Binding BackMenuCommand}"
+                Width="120"
+                Height="30"
+                Margin="0,0,0,0"
+                Background="White"
+                BorderBrush="Black"
+                BorderThickness="1"
+                FontSize="14"
+                Cursor="Hand"/>
         <TextBlock Text="Нет карточек" 
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    Visibility="{Binding EmptyMessageVisibility}"/>
         <!-- Карточка с термином -->
-        <Border Grid.Row="0"
+        <Border Grid.Row="1"
                 Width="420"
                 Height="320"
                 HorizontalAlignment="Center"
@@ -39,7 +51,7 @@
         </Border>
 
         <!-- Кнопки -->
-        <Grid Grid.Row="1" 
+        <Grid Grid.Row="2" 
               Margin="0,0,0,60"
               HorizontalAlignment="Center">
             <Grid.ColumnDefinitions>
@@ -52,7 +64,7 @@
                     Command="{Binding MarkAsLearnedCommand}"
                     Width="120"
                     Height="30"
-                    Margin="0,0,100,0"
+                    Margin="0,0,0,0"
                     Background="White"
                     BorderBrush="Black"
                     BorderThickness="1"
@@ -70,6 +82,8 @@
                     BorderThickness="1"
                     FontSize="14"
                     Cursor="Hand"/>
+            
+            
         </Grid>
     </Grid>
 </UserControl>

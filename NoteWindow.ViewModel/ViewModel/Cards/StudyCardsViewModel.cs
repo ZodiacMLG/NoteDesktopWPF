@@ -12,6 +12,14 @@ namespace NoteWindow.ViewModel.ViewModel.Cards
 {
     public class StudyCardsViewModel : INotifyPropertyChanged
     {
+        private readonly ICardRepository _cardRepository;
+        private bool _isProcessing = false;
+        private bool _isEditMode;
+        private Card _currentCard;
+        private ObservableCollection<Card> _cards { get; }
+        private int _currentIndex;
+        private bool _hasCards;
+
         public bool IsEditMode
         {
             get => _isEditMode;
@@ -47,13 +55,7 @@ namespace NoteWindow.ViewModel.ViewModel.Cards
         public Visibility CardsVisibility => HasCards ? Visibility.Visible : Visibility.Collapsed;
         public Visibility EmptyMessageVisibility => HasCards ? Visibility.Collapsed : Visibility.Visible;
 
-        private readonly ICardRepository _cardRepository;
-        private bool _isProcessing = false;
-        private bool _isEditMode;
-        private Card _currentCard;
-        private ObservableCollection<Card> _cards { get; }
-        private int _currentIndex;
-        private bool _hasCards;
+        
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

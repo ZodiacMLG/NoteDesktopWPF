@@ -85,6 +85,21 @@ namespace NoteWindow.Services.Services
             }
         }
 
+        public async Task<bool> DeleteReviewedCard(Guid cardId)
+        {
+            string sourceFile = Path.Combine(pathForReviewedCards, cardId.ToString() + ".json");
+            if (!File.Exists(sourceFile))
+            {
+                Debug.WriteLine($"Не удалось найти файл {cardId}");
+                return await Task.FromResult(false);
+            }
+            else
+            {
+                File.Delete(sourceFile);
+                return await Task.FromResult(true);
+            }
+        }
+
         private async Task<IEnumerable<Card>> GetFilesAsync(string pathToFiles)
         {
             try

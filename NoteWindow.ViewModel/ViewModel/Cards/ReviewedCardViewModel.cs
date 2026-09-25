@@ -18,6 +18,8 @@ namespace NoteWindow.ViewModel.ViewModel.Cards
         private Card _currentCard;
         private bool _hasCards;
         private readonly ICardRepository _cardRepository;
+        private int _currentIndex;
+        private bool _isProcessing = false;
         private ObservableCollection<Card> _cards { get; }
 
         public bool HasCards
@@ -60,12 +62,20 @@ namespace NoteWindow.ViewModel.ViewModel.Cards
 
             NextCommand = new RelayCommand(NextExecute, CanNextExecute);
             //PreviousCommand = new RelayCommand(PreviousExecute, CanPreviousExecute);
-            MarkAsLearnedCommand = new RelayCommand(MarkAsLearnedExecute, CanMarkAsLearnedExecute);
+            MarkAsLearnedCommand = new RelayCommand(MarkAsLearnedReviewedExecute, CanMarkAsLearnedReviewedExecute);
         }
 
         public void NextExecute(object parameter)
         {
-
+            if (_currentIndex < _cards.Count - 1)
+            {
+                _currentIndex++;
+            }
+            else
+            {
+                _currentIndex = 0;
+            }
+            CurrentCard = _cards[_currentIndex];
         }
         public bool CanNextExecute(object parameter)
         {
@@ -79,20 +89,52 @@ namespace NoteWindow.ViewModel.ViewModel.Cards
             }
         }
 
-        public void MarkAsLearnedExecute(object parameter)
+        public async void MarkAsLearnedReviewedExecute(object parameter)
         {
+            try
+            {
+                _isProcessing = true;
+                CommandManager.InvalidateRequerySuggested();
+                if (CurrentCard != null)
+                {
+                    bool successMove = await _cardRepository.DeleteReviewedCard(CurrentCard.Id);
 
+                    if (successMove)
+                    {
+                        _cards.Remove(CurrentCard);
+                    }
+
+                    if (_cards.Count == 0)
+                    {
+                        HasCards = false;
+                        return;
+                    }
+                    else
+                    {
+                        if (_currentIndex > _cards.Count - 1)
+                        {
+                            _currentIndex = 0;
+                        }
+                        CurrentCard = _cards[_currentIndex];
+                    }
+                }
+            }
+            finally
+            {
+                _isProcessing = false;
+                CommandManager.InvalidateRequerySuggested();
+            }
         }
 
-        public bool CanMarkAsLearnedExecute(object paramater)
+        public bool CanMarkAsLearnedReviewedExecute(object paramater)
         {
-            if (HasCards)
+            if (_isProcessing && HasCards)
             {
-                return true;
+                return false;
             }
             else
             {
-                return false;
+                return true;
             }
         }
     }

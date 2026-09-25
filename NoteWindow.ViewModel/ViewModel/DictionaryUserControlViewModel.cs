@@ -55,5 +55,15 @@ namespace NoteWindow.ViewModel.ViewModel
         {
             return true;
         }
+
+        private void ShowReviewedCardsExecute(object parameter)
+        {
+            CurrentView = new ReviewedCardViewModel(_cardRepository);
+        }
+
+        private bool CanShowReviewedCardsExecute(object parameter)
+        {
+            return true;
+        }
     }
 }
