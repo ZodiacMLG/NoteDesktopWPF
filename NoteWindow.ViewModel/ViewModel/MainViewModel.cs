@@ -49,7 +49,7 @@ namespace NoteWindow.ViewModel.ViewModel
             _dictionaryUserControlViewModel = new DictionaryUserControlViewModel(cardRepository);
             _profileUserControlViewModel = new ProfileUserControlViewModel();
             
-            CurrentView = _noteViewModel;
+            CurrentView = null;
 
             ShowProfileCommand = new RelayCommand(ShowProfileExecute, CanShowProfileExecute);
             ShowNotesCommand = new RelayCommand(ShowNotesExecute, CanShowNotesExecute);
@@ -60,7 +60,7 @@ namespace NoteWindow.ViewModel.ViewModel
         {
             if (CurrentView == _profileUserControlViewModel)
             {
-                CurrentView = _noteViewModel;
+                CurrentView = null;
             }
             else
             {
@@ -75,7 +75,7 @@ namespace NoteWindow.ViewModel.ViewModel
         {
             if (CurrentView == _dictionaryUserControlViewModel)
             {
-                CurrentView = _noteViewModel;
+                CurrentView = null;
             }
             else
             {
@@ -89,7 +89,14 @@ namespace NoteWindow.ViewModel.ViewModel
 
         private void ShowNotesExecute(object parameter)
         {
-            CurrentView = _noteViewModel;
+            if (CurrentView == _noteViewModel)
+            {
+                CurrentView = null;
+            }
+            else
+            {
+                CurrentView = _noteViewModel;
+            }
         }
         private bool CanShowNotesExecute(object parameter)
         {

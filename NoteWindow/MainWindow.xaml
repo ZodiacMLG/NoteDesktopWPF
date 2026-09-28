@@ -33,11 +33,13 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="40"/>
                 <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
             <Button Grid.Row="0" Command="{Binding ShowProfileCommand}" Content="Профиль" Click="ButtonProfile_Click"/>
             <Button Grid.Row="1" Command="{Binding ShowDictionaryCommand}" Content="Карточки"/>
+            <Button Grid.Row="2" Command="{Binding ShowNotesCommand}" Content="Заметки"/>
             
 
             <ListBox Grid.Row="3" 

@@ -21,17 +21,13 @@ namespace NoteWindow
 
         private void ButtonProfile_Click(object sender, RoutedEventArgs e)
         {
-            //string profileTitle = "Профиль пользователя";
-            //if (this.Title != profileTitle)
-            //{
-            //    MessageBox.Show($"Сейчас название программы: {this.Title}");
-            //    this.Title = profileTitle;
-            //}
-            //else
-            //{
-            //    MessageBox.Show($"Сейчас название программы: {this.Title}");
-            //    this.Title = "Заметки";
-            //}
+            var window = Window.GetWindow(this);
+            string profileTitle = "Профиль пользователя";
+
+            if (window.Title != profileTitle)
+            {
+                window.Title = profileTitle;
+            }
         }
     }
 }
