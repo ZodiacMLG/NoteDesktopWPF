@@ -14,7 +14,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Button Grid.Row="0"
-                Content="Назад"
+                Content="Вернуться назад"
                 Command="{Binding BackMenuCommand}"
                 Width="120"
                 Height="30"
@@ -24,7 +24,8 @@
                 BorderThickness="1"
                 FontSize="14"
                 Cursor="Hand"/>
-        <TextBlock Text="Нет карточек" 
+        <TextBlock Grid.Row="1"
+                   Text="Нет карточек" 
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    Visibility="{Binding EmptyMessageVisibility}"/>
@@ -82,8 +83,6 @@
                     BorderThickness="1"
                     FontSize="14"
                     Cursor="Hand"/>
-            
-            
         </Grid>
     </Grid>
 </UserControl>

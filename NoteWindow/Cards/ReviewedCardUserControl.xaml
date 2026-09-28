@@ -8,15 +8,28 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <TextBlock Text="Нет карточек" 
+        <Button Grid.Row="0"
+                Content="Вернуться назад"
+                Command="{Binding BackMenuCommand}"
+                Width="120"
+                Height="30"
+                Margin="0,0,0,0"
+                Background="White"
+                BorderBrush="Black"
+                BorderThickness="1"
+                FontSize="14"
+                Cursor="Hand"/>
+        <TextBlock Grid.Row="1"
+                   Text="Нет карточек" 
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    Visibility="{Binding EmptyMessageVisibility}"/>
         <!-- Карточка с термином -->
-        <Border Grid.Row="0"
+        <Border Grid.Row="1"
                 Width="420"
                 Height="320"
                 HorizontalAlignment="Center"
@@ -36,7 +49,7 @@
                        TextWrapping="Wrap"
                        Margin="30"/>
         </Border>
-        <Grid Grid.Row="1" 
+        <Grid Grid.Row="2" 
               Margin="0,0,0,60"
               HorizontalAlignment="Center"> 
             <Grid.ColumnDefinitions>

@@ -33,13 +33,12 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="40"/>
                 <RowDefinition Height="40"/>
-                <RowDefinition Height="40"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Button Grid.Row="0" Command="{Binding ShowProfileCommand}" Content="Профиль"/>
-            <Button Grid.Row="1" Command="{Binding ShowDictionaryCommand}" Content="Словари"/>
-            <Button Grid.Row="2">Курс</Button>
+            <Button Grid.Row="0" Command="{Binding ShowProfileCommand}" Content="Профиль" Click="ButtonProfile_Click"/>
+            <Button Grid.Row="1" Command="{Binding ShowDictionaryCommand}" Content="Карточки"/>
+            
 
             <ListBox Grid.Row="3" 
                      SelectedItem="{Binding NoteViewModel.SelectedNote}" 

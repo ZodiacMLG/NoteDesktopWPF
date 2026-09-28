@@ -12,6 +12,9 @@ namespace NoteWindow.ViewModel.ViewModel.Cards
 {
     public class StudyCardsViewModel : INotifyPropertyChanged
     {
+        // Event для кнопки "вернуться назад"
+        public event EventHandler? RequestBackToMenu;
+
         private readonly ICardRepository _cardRepository;
         private bool _isProcessing = false;
         private bool _isEditMode;
@@ -52,6 +55,7 @@ namespace NoteWindow.ViewModel.ViewModel.Cards
         public ICommand NextCommand { get; }
         public ICommand PreviousCommand { get; }
         public ICommand MarkAsLearnedCommand { get; }
+        public ICommand BackMenuCommand { get; }
         public Visibility CardsVisibility => HasCards ? Visibility.Visible : Visibility.Collapsed;
         public Visibility EmptyMessageVisibility => HasCards ? Visibility.Collapsed : Visibility.Visible;
 
@@ -71,6 +75,7 @@ namespace NoteWindow.ViewModel.ViewModel.Cards
             NextCommand     = new RelayCommand(NextExecute, CanNextExecute);
             PreviousCommand = new RelayCommand(PreviousExecute, CanPreviousExecute);
             MarkAsLearnedCommand = new RelayCommand(MarkAsLearnedExecute, CanMarkAsLearnedExecute);
+            BackMenuCommand = new RelayCommand(BackMenuExecute, CanBackMenuExecute);
 
             LoadCardsAsync();
         }
@@ -160,7 +165,7 @@ namespace NoteWindow.ViewModel.ViewModel.Cards
 
         private bool CanMarkAsLearnedExecute(object parameter)
         {
-            if (_isProcessing && HasCards)
+            if (_isProcessing || !HasCards)
             {
                 return false;
             }
@@ -169,6 +174,16 @@ namespace NoteWindow.ViewModel.ViewModel.Cards
                 return true;
             }
             
+        }
+
+        private void BackMenuExecute(object parameter)
+        {
+            RequestBackToMenu?.Invoke(this, EventArgs.Empty);
+        }
+
+        private bool CanBackMenuExecute(object parameter)
+        {
+            return true;
         }
 
         private async Task LoadCardsAsync()

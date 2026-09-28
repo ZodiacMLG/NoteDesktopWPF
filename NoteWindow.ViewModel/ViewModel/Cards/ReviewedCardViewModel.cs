@@ -9,12 +9,16 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace NoteWindow.ViewModel.ViewModel.Cards
 {
     public class ReviewedCardViewModel : INotifyPropertyChanged
     {
+        // Event для кнопки "Вернуться назад"
+        public event EventHandler? RequestBackToMenu;
+
         private Card _currentCard;
         private bool _hasCards;
         private readonly ICardRepository _cardRepository;
@@ -29,8 +33,8 @@ namespace NoteWindow.ViewModel.ViewModel.Cards
             {
                 _hasCards = value;
                 OnPropertyChanged(nameof(HasCards));
-                //OnPropertyChanged(nameof(CardsVisibility));
-                //OnPropertyChanged(nameof(EmptyMessageVisibility));
+                OnPropertyChanged(nameof(CardsVisibility));
+                OnPropertyChanged(nameof(EmptyMessageVisibility));
             }
         }
         public Card CurrentCard
@@ -46,8 +50,11 @@ namespace NoteWindow.ViewModel.ViewModel.Cards
             }
         }
         public ICommand NextCommand { get; }
-        public ICommand PreviousCommand { get; }
+        //public ICommand PreviousCommand { get; }
         public ICommand MarkAsLearnedCommand { get; }
+        public ICommand BackMenuCommand { get; }
+        public Visibility CardsVisibility => HasCards ? Visibility.Visible : Visibility.Collapsed;
+        public Visibility EmptyMessageVisibility => HasCards ? Visibility.Collapsed : Visibility.Visible;
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -63,6 +70,10 @@ namespace NoteWindow.ViewModel.ViewModel.Cards
             NextCommand = new RelayCommand(NextExecute, CanNextExecute);
             //PreviousCommand = new RelayCommand(PreviousExecute, CanPreviousExecute);
             MarkAsLearnedCommand = new RelayCommand(MarkAsLearnedReviewedExecute, CanMarkAsLearnedReviewedExecute);
+            BackMenuCommand = new RelayCommand(BackMenuExecute, CanBackMenuExecute);
+            
+
+            LoadCardsAsync();
         }
 
         public void NextExecute(object parameter)
@@ -128,7 +139,7 @@ namespace NoteWindow.ViewModel.ViewModel.Cards
 
         public bool CanMarkAsLearnedReviewedExecute(object paramater)
         {
-            if (_isProcessing && HasCards)
+            if (_isProcessing || !HasCards)
             {
                 return false;
             }
@@ -137,5 +148,43 @@ namespace NoteWindow.ViewModel.ViewModel.Cards
                 return true;
             }
         }
+
+        private void BackMenuExecute(object parameter)
+        {
+            RequestBackToMenu?.Invoke(this, EventArgs.Empty);
+        }
+
+        private bool CanBackMenuExecute(object parameter)
+        {
+            return true;
+        }
+
+        private async Task LoadCardsAsync()
+        {
+            try
+            {
+                IEnumerable<Card> cards = await _cardRepository.GetReviewedCardsAsync();
+
+                if (!cards.Any())
+                {
+                    HasCards = false;
+                }
+                else
+                {
+                    foreach (Card card in cards)
+                    {
+                        _cards.Add(card);
+                    }
+                    HasCards = true;
+                    CurrentCard = _cards.First();
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message);
+                await Task.FromException(ex);
+            }
+        }
+
     }
 }

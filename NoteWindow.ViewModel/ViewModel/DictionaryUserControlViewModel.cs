@@ -1,7 +1,6 @@
 ﻿using NoteWindow.Services.Interfaces;
 using NoteWindow.ViewModel.Infrastructure;
 using NoteWindow.ViewModel.ViewModel.Cards;
-using System.CodeDom.Compiler;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
@@ -39,7 +38,6 @@ namespace NoteWindow.ViewModel.ViewModel
 
         public DictionaryUserControlViewModel(ICardRepository cardRepository)
         {
-            _studyCardsViewModel = new StudyCardsViewModel(cardRepository);
             _cardRepository = cardRepository;
 
             ShowNewCardsCommand = new RelayCommand(ShowNewCardsExecute, CanShowNewCardsExecute);
@@ -48,7 +46,9 @@ namespace NoteWindow.ViewModel.ViewModel
 
         private void ShowNewCardsExecute(object parameter)
         {
-            CurrentView = new StudyCardsViewModel(_cardRepository);
+            StudyCardsViewModel studyVm = new StudyCardsViewModel(_cardRepository);
+            studyVm.RequestBackToMenu += (s, e) => CurrentView = null;
+            CurrentView = studyVm;
         }
 
         private bool CanShowNewCardsExecute(object parameter)
@@ -58,7 +58,9 @@ namespace NoteWindow.ViewModel.ViewModel
 
         private void ShowReviewedCardsExecute(object parameter)
         {
-            CurrentView = new ReviewedCardViewModel(_cardRepository);
+            ReviewedCardViewModel revievedVm = new ReviewedCardViewModel(_cardRepository);
+            revievedVm.RequestBackToMenu += (s, e) => CurrentView = null;
+            CurrentView = revievedVm;
         }
 
         private bool CanShowReviewedCardsExecute(object parameter)
