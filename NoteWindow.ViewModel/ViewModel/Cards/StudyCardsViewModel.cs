@@ -95,7 +95,7 @@ namespace NoteWindow.ViewModel.ViewModel.Cards
 
         private bool CanNextExecute(object parameter)
         {
-            if (HasCards)
+            if (HasCards && _cards.Count > 1)
             {
                 return true;
             }

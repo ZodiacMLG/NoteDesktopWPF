@@ -29,5 +29,27 @@ namespace NoteWindow
                 window.Title = profileTitle;
             }
         }
+
+        private void ButtonCards_Click(object sender, RoutedEventArgs e)
+        {
+            var window = Window.GetWindow(this);
+            string profileTitle = "Карточки";
+
+            if (window.Title != profileTitle)
+            {
+                window.Title = profileTitle;
+            }
+        }
+
+        private void ButtonNotes_Click(object sender, RoutedEventArgs e)
+        {
+            var window = Window.GetWindow(this);
+            string profileTitle = "Заметки";
+
+            if (window.Title != profileTitle)
+            {
+                window.Title = profileTitle;
+            }
+        }
     }
 }

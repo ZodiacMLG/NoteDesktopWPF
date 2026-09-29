@@ -10,7 +10,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Button Grid.Row="0"
@@ -24,11 +24,22 @@
                 BorderThickness="1"
                 FontSize="14"
                 Cursor="Hand"/>
-        <TextBlock Grid.Row="1"
-                   Text="Нет карточек" 
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center"
-                   Visibility="{Binding EmptyMessageVisibility}"/>
+        <Border Grid.Row="1"
+            Width="420"
+            Height="320"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Background="White"
+            BorderBrush="Black"
+            BorderThickness="1.5"
+            CornerRadius="40"
+            Visibility="{Binding EmptyMessageVisibility}">
+            <TextBlock Grid.Row="1"
+                       Text="Нет карточек" 
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       />
+        </Border>
         <!-- Карточка с термином -->
         <Border Grid.Row="1"
                 Width="420"

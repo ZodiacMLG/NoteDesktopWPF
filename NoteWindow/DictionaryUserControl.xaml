@@ -61,7 +61,8 @@
         <Label Grid.Row="0"
                Content="Карточки"
                HorizontalAlignment="Center"
-               FontSize="30"/>
+               FontSize="30"
+               Visibility="{Binding MenuVisibility}"/>
         <ContentControl Content="{Binding CurrentView}"/>
         <StackPanel Grid.Row="1"
                     HorizontalAlignment="Center" 
