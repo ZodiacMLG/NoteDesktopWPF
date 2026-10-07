@@ -42,17 +42,17 @@
             <Button Grid.Row="2" Command="{Binding ShowNotesCommand}" Content="Заметки" Click="ButtonNotes_Click"/>
             
 
-            <ListBox Grid.Row="3" 
+            <!--<ListBox Grid.Row="3"
                      SelectedItem="{Binding NoteViewModel.SelectedNote}" 
                      ItemsSource="{Binding NoteViewModel.Notes}" 
-                     x:Name="ListNotes" 
+                     x:Name="ListNotes"
                      MinWidth="50">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Title}"/>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
-            </ListBox>
+            </ListBox>-->
         </Grid>
 
         <!-- Правая область для контента -->

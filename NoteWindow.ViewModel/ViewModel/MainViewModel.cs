@@ -58,14 +58,7 @@ namespace NoteWindow.ViewModel.ViewModel
 
         private void ShowProfileExecute(object parameter)
         {
-            if (CurrentView == _profileUserControlViewModel)
-            {
-                CurrentView = null;
-            }
-            else
-            {
-                CurrentView = _profileUserControlViewModel;
-            }
+            CurrentView = _profileUserControlViewModel;
         }
         private bool CanShowProfileExecute(object parameter)
         {
@@ -73,14 +66,7 @@ namespace NoteWindow.ViewModel.ViewModel
         }
         private void ShowDictionaryExecute(object parameter)
         {
-            if (CurrentView == _dictionaryUserControlViewModel)
-            {
-                CurrentView = null;
-            }
-            else
-            {
-                CurrentView = _dictionaryUserControlViewModel;
-            }
+            CurrentView = _dictionaryUserControlViewModel;
         }
         private bool CanShowDictionaryExecute(object parameter)
         {
@@ -89,14 +75,7 @@ namespace NoteWindow.ViewModel.ViewModel
 
         private void ShowNotesExecute(object parameter)
         {
-            if (CurrentView == _noteViewModel)
-            {
-                CurrentView = null;
-            }
-            else
-            {
-                CurrentView = _noteViewModel;
-            }
+            CurrentView = _noteViewModel;
         }
         private bool CanShowNotesExecute(object parameter)
         {
